@@ -1,13 +1,14 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Colors from '../Colors';
 
 
 
 const LoginScreen = () => {
   return (
     <>
-    <Form className='mx-auto my-5' style={{width:"500px"}}>
+    <Form className='mx-auto my-4' style={{width:"500px", backgroundColor: Colors.blue1 }}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control type="email" placeholder="Enter email" />
