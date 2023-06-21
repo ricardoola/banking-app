@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.footer {
+  /* Option 1: Absolute positioning */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  /* Option 2: Direct child */
+  /* margin-top: auto; */
+}
