@@ -8,7 +8,7 @@ import Colors from '../Colors';
 const LoginScreen = () => {
   return (
     <>
-    <Form className='mx-auto my-4' style={{width:"500px", backgroundColor: Colors.blue1 }}>
+    <Form className='mx-auto my-4' style={{width:"500px", backgroundColor: Colors.blue2 }}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control type="email" placeholder="Enter email" />
