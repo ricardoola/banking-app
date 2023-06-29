@@ -1,14 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Colors from '../Colors';
 import './css/welcome.css';
-
+import axios from 'axios';
 
 
 
 const LoginScreen = () => {
+
+  
+    const [formData, setFormData] = useState({
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    });
+
+    const handleSignup = async (e) => {
+      e.preventDefault();
+
+      try {
+        const response = await axios.post('https://mypythonproject.com:5000/signup', formData);
+        console.log(response.data); // Do something with the response if needed
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
 
   const [show, setShow] = useState(false);
 
@@ -53,30 +74,58 @@ const LoginScreen = () => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-          <Form.Group className="mb-3" controlId="formSignupEmail">
-              <Form.Label>First Name</Form.Label>
-              <Form.Control type="text" placeholder="First Name" />
-            </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formSignupEmail">
-              <Form.Label>Last Name</Form.Label>
-              <Form.Control type="text" placeholder="Last Name" />
+          <Form.Group className="mb-3" controlId="formSignupFirstName">
+            <Form.Label>First Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="First Name"
+              value={formData.firstName}
+              onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+            />
+          </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formSignupLastName">
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Last Name"
+              value={formData.lastName}
+              onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+            />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formSignupEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
-            </Form.Group>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              />
+          </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formSignupPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
+          <Form.Group className="mb-3" controlId="formSignupPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+            />
+          </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formSignupEmail">
-              <Form.Label>Confirm Password</Form.Label>
-              <Form.Control type="password" placeholder="Confirm Password" />
-            </Form.Group>
+          <Form.Group className="mb-3" controlId="formSignupConfPassword">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Confirm Password"
+              value={formData.confirmPassword}
+              onChange={(e) =>
+                setFormData({ ...formData, confirmPassword: e.target.value })
+              }
+            />
+          </Form.Group>
 
             {/* Add any additional form fields here */}
           </Form>
@@ -85,7 +134,7 @@ const LoginScreen = () => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleSignup}>
             Sign Up
           </Button>
         </Modal.Footer>
