@@ -25,16 +25,34 @@ const LoginScreen = () => {
       try {
         const response = await axios.post('https://mypythonproject.com:5000/signup', formData);
         console.log(response.data); // Do something with the response if needed
+        setSuccess(true);
+
       } catch (error) {
-        console.log(error);
+
+        if (error.response && error.response.status === 409) {
+        setError('Account already exists');
+      } else {
+        setError('An error occurred');
+      }
       }
     };
 
 
   const [show, setShow] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => {
+    setShow(false);
+    setError('');
+    setSuccess(false);
+  };
+
+  const handleShow = () => {
+    setShow(true);
+    setError('');
+    setSuccess(false);
+  };
   return (
   <>
     <main className=' welcomeScreen' style={{backgroundColor:Colors.blue1}}>
@@ -129,6 +147,10 @@ const LoginScreen = () => {
 
             {/* Add any additional form fields here */}
           </Form>
+          {error && <p className="error">{error}</p>}
+          {success && <p className="success">Account created successfully!</p>}
+
+
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
