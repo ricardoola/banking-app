@@ -3,14 +3,19 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Colors from '../Colors';
-import './css/welcome.css';
+import '../css/welcome.css';
 import axios from 'axios';
-
 
 
 const LoginScreen = () => {
 
-  
+    const [loginData, setLoginData] = useState({
+      email: '',
+      password: '',
+
+    });
+    
+
     const [formData, setFormData] = useState({
       firstName: '',
       lastName: '',
@@ -31,6 +36,24 @@ const LoginScreen = () => {
 
         if (error.response && error.response.status === 409) {
         setError('Account already exists');
+      } else {
+        setError('An error occurred');
+      }
+      }
+    };
+
+    const handleCheckSignedUp = async (e) => {
+      e.preventDefault();
+
+      try {
+        const response = await axios.post('https://mypythonproject.com:5000/check_sign_up', loginData);
+        console.log(response.data); // Do something with the response if needed
+        setSuccess(true);
+
+      } catch (error) {
+
+        if (error.response && error.response.status === 409) {
+        setError('Your account does not exist. Please sign up.');
       } else {
         setError('An error occurred');
       }
@@ -64,10 +87,18 @@ const LoginScreen = () => {
         </div>
       </div>
       <div className='login header-container'>
+
+
         <Form className='mx-auto my-4' style={{width:"500px"}}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
+            <Form.Control 
+            type="email" 
+            placeholder="Enter email" 
+            onChange={(e) =>
+              setLoginData({ ...loginData, email: e.target.value })
+            }
+            />
             <Form.Text className="text-muted">
               
             </Form.Text>
@@ -75,18 +106,26 @@ const LoginScreen = () => {
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
+            <Form.Control 
+            type="password" 
+            placeholder="Password" 
+            onChange={(e) =>
+              setLoginData({ ...loginData, password: e.target.value })
+            }/>
           </Form.Group>
           <div className="mt-3">
           Don't have an account? <Button variant="link" onClick={handleShow}>Sign up</Button>
           </div>
           
-          <Button variant="primary" type="submit">
-            Submit
+          <Button variant="primary" type="submit" onClick={handleCheckSignedUp}>
+            Login
           </Button>
+        
+          {error && <p className="error">{error}</p>}
+          {success && <p className="success">Login successfull!</p>}
         </Form>
 
-        <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Sign Up</Modal.Title>
         </Modal.Header>
@@ -161,6 +200,8 @@ const LoginScreen = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+
+
       </div>
       
     </main>

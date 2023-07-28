@@ -6,7 +6,7 @@ import LoginScreen from './screens/LoginScreen'
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import Colors from './Colors';
-import './screens/css/welcome.css';
+import './css/welcome.css';
 
 const App = () => {
   return (
@@ -15,7 +15,6 @@ const App = () => {
      
         <Routes>  
           <Route path='/' element={<LoginScreen/>} exact/>
-          
         </Routes>
         <Footer />
    

@@ -1,0 +1,50 @@
+.welcomeScreen {
+  display: flex;
+  flex-direction: row;
+  height: 94vh; /*this will make your container take up the entire viewport height */
+  box-sizing: border-box;
+}
+
+.left-side {
+  background-color: #C2DEF3;
+  width: 50%;
+  border-right: 3px solid black;
+  padding-top: 356.781px;
+}
+
+.header-container {
+  background-color: #FFFAFA;
+  border: 3px solid #090088;
+  width: 35rem;
+  margin: auto !important;
+  border-radius: 2%;
+  height: 18rem;
+}
+
+.header-container > h2 {
+  display: inline-block;
+  position: relative;
+  left: 22.5%;
+  margin-left: auto;
+  padding-top: 15%;
+}
+
+.header-container p {
+  display: inline-block;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.error {
+  color: darkred;
+  font-style: italic;
+}
+
+.success {
+  color: green;
+  font-style: italic;
+}
+
+/* div {
+    border: 1px dotted red;
+} */
